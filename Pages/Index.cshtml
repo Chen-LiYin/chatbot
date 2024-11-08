@@ -1,31 +1,101 @@
 ﻿@page
-<div class="container">
-    <div class="row p-1">
-        <div class="col-1">User</div>
-        <div class="col-5"><input type="text" id="userInput" /></div>
-    </div>
-    <div class="row p-1">
-        <div class="col-1">Message</div>
-        <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6 text-end">
-            <input type="button" id="sendButton" value="Send Message" />
-        </div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6">
-            <hr />
-        </div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
+@model SignalRChat.Pages.IndexModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
 
-</div>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa; /* 使用淡灰色背景 */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px; /* 增加 padding */
+        }
 
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>
-<script src="~/js/game.js"></script>
+        .container {
+            margin-top: 50px;
+            max-width: 800px; /* 限制最大寬度 */
+            margin: auto; /* 自動居中 */
+            padding: 20px;
+            background-color: #ffffff; /* 背景顏色為白色 */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加陰影效果 */
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            border-radius: 10px;
+            border: 1px solid #ced4da; /* 使用灰色邊框 */
+            padding: 10px; /* 增加 padding */
+        }
+
+        .input-group input:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* 藍色聚焦陰影 */
+            border-color: #80bdff; /* 藍色邊框 */
+        }
+
+        #sendButton {
+            background-color: #007bff; /* 使用藍色按鈕 */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* 增加過渡效果 */
+        }
+
+        #sendButton:hover {
+            background-color: #0056b3; /* 更深的藍色 */
+        }
+
+        #messagesList {
+            display: flex;
+            flex-wrap: wrap;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #messagesList li {
+            background-color: #ffffff; /* 白色背景 */
+            border: 1px solid #ced4da; /* 灰色邊框 */
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 添加輕微陰影 */
+            flex: 0 0 calc(33.333% - 20px); /* 每行三個小方框 */
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="input-group">
+            <span class="input-group-text bg-transparent border-0"> 使用者</span>
+            <input type="text" id="userInput" class="form-control" placeholder="輸入你的名字" />
+        </div>
+        <div class="input-group">
+            <span class="input-group-text bg-transparent border-0"> 訊息</span>
+            <input type="text" id="messageInput" class="form-control" placeholder="在這裡輸入訊息" />
+        </div>
+        <div class="text-end">
+            <input type="button" id="sendButton" value="送出訊息" />
+        </div>
+        <hr />
+        <ul id="messagesList"></ul>
+    </div>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/game.js"></script>
+</body>
+
+</html>
